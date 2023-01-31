@@ -1,0 +1,1277 @@
+Lecture1---https://drive.google.com/drive/folders/1NT4ZX_o2JS80gAhQiM276l224ldkQRN9
+
+D/B ML,Deep Learning and AI
+
+AI termis coined in year 1956
+
+Ai -: Aritificial Intelligence -: 1956  -: Mimic the Human Behaviour
+ML -: Machine Learning 		-: 1959 -: teach our system -: Learn -: 
+Deep learning -: Deep Learning	-: 2000 -: Mimic the Human Brain -: 
+Aritificial Neurons / perceptron -: 1957  
+
+
+
+ML -> Dl -> Ai
+
+
+
+Unsupervised ML -: process of Extracting patterns from Unlabelled data
+Supervised ML	-: process of making prediction using labelled data
+
+
+
+Supervised DEEP learning---- see human brain anatomy---Temporal lobe green color----
+Temporal lobe -: data processing -> ANN -: Artificial Neural Network
+Occipital lobe -:---blue color---- Visson -> CNN -: Convolutional Neural Network
+Frontal Lobe -:------short term long term memory---- Analytics reasoning LSTM -> RNN -> Recurrent Neural network
+
+
+Deeplearning is basically complex NN and  is a part of ML.Letus know how DeepLearning algo is diffrent from ML algo--Lets say u want tobulid a classiier which looks at an image of cat and 
+classifies it as a catif its a cat and not cat if its not a cat. In ML,the process is like--i/p---->feature extraction---->classification using ML model---->o/p
+
+While in deep learning---model takes care of feature extraction+classification  i.e. i/p----->feature extraction+classification----->o/p
+In deep learning, the model build  simple concepts by itself using the training data.i.e. to differentiate between cat and dog--first the imageis stored as a matrix
+where each pixel is represented by a few set of numeriacal vlues. It first try to identify the edges by lookin at the changes in colors..Then it looks at the combination 
+of these edges to find simple features like ears, end of tail..then it adds these features to find more complex featureslike ears,eyes,nose. Finally the model adds
+these fetures to know if its cat or dog.
+
+Deep learning models are typically run on gpus or tpus.They perform automatic feature extraction.And performs well on more data.Interpretationof DL models 
+are difficult.
+
+DeepLearning is so popular because of rise ofdata, rise of computational power and diff types of hardware like gpus and tpus.Also industry acceptance.
+eg.self driving cars,health care, realtime lang translation,etc. Also the research happening in the area of dl.
+Keras,pytorch,tensorflow,caffe etc ae few libraries used for dl.
+
+The most resource intensive task is matrix multiplication operations.A whole series of operations are performed on these input to get o/p.These operations are repetitive 
+in nature and have to be performed tens and thousands of times. The hw avaliable for these processing are cpu,gpu-graphical processing unit,tpus--tensor processing unit.
+Gpus do simple tasklike matrixmultiplication parallely.
+
+Few libraries required are--numpy - for basic math and linear algebra functions, scipy--for a variety of high level scientificand engineering moduls,
+pandas -for structured data operations andmanipulations. matplotlib- for data visualization and plotting, scikit-learn- for building ML models.,etc,
+
+
+Install anaconda navigator, install NVIDIA drivers for gpu usage--https://docs.nvidia.com/cuda/cuda-installation-guide-microsoft-windows/index.html
+
+SomeDL framworks like keras ,pytorch
+
+To install keras in your system---
+1.install tensorflow backend-- pip install tensorflow_gpu-1.7.0-cp35-cp35m-----
+
+2. install keras--pip install keras
+
+3.for pytorch-- do -- pip install torch torchvision
+
+or u can use google colab--- free cloudbased jupyter environment.
+
+Perceptron is the fundamental concept of dl-Lets say our aim is to predict loan should be approved or not depending on the salary ofa person. Lets say the bank 
+decided it willgive loan toonly those people who have salary ofmore than 50000per month. Sothe model takes salary as i/p,checks if salary>50000,if salary is more
+than 50000,then give yes.This 50000 can be the threshold. Similarly we can have (fathers income+applicant income+spouse income)>50000,or x1+x2+x3>50000
+or,x1+x2+x3-thresold>0-----> -threshold is actually a bias --->then,x1+x2+x3+bias>0---->now,this bias is something modellearns from an underlying data.
+
+iif, x2+x2+x3+bias>0--- o/p 1 means fire the Neuron
+else o/p 0--don't fire.
+
+Now,if I represent this func as an activation func Z(=x2+x2+x3+bias)>0 then o/p 0,otherwise 1.
+
+or,o/p=1 if Z>0
+and o/p=0 if Z<=0
+
+This is stepfunction. Now,when we use step func as an activation function for a neurn,its callled perceptron.
+
+Weights in perceptron--see diary diag---Applicant Salary=10000,Father salary=15000,spouce salary=7000 ,bias=-50000
+x1*w1+x2*w2+x3*w3+bias----leats asy allweights are 1,then 10000+15000+7000-50000=-18000 finalo/p=0..now,theidea is to assign these weights,w1=3,w2=2,w3=1===>
+59000-50000=9000>0 so o/p 1
+
+So,z=x1*w1+x2*w2+x3*w3+bias----
+Y(o/p)=step(z)
+
+this stepfuction can be like-- sigmoid func,the range of i/p values can be -inf to inf,but sigmoid func o/p is betweeen 0 and 1.
+Now,the sigmoid func is a conti fun,and can return any value between 0 and 1,and these can be treated as probabilities. This is similar to alogistic regrssion model.
+This is our single layer perceptron.
+
+We can have multilayer perceptron.See diary---
+
+Tensorflow playground---to visualize training of NN.
+
+The initial parametersi.e. weight and bias values are different , so the starting point is different for both the cases.
+
+
+========Lecturte 2---------------
+
+Gradient Descent----
+
+Introduction to NN and human perceptrons--
+
+And then we will seee how NN works for classification and regression problems.
+In dl we try to mimic human brain.. and a neuron is a smallest unit of brain.-----------------------------untitled.png----draw how neuron looks like---
+explain dendrides axon, axon terminals-- we have around 86 billion neurons-- there is some gap between axon terminals and and dendrides--This type of connection 
+is known as synapse. 
+
+Now, 1 neuron can be connected to another neuron or to muscle tissues of glands or to nerve cells.
+
+Now if we try to draw this geometrically, it looks something like ---
+
+dendrites works as receiver, axon terminal acts as transmitter and the nucleus at the center is where all processing happens.
+
+Draw fwd propogation diag---
+
+b is bias, x1, x2...xn are i/ps or signals -- i/ps have weights., also caleed as sinapse,,.blue circle is neuron,which contains activation func 
+which acts on weighted sum of i/ps to give the o/p--
+i.e. ypred--- Now this ypred can be categorical or binary or continuous--Then we check how much error we received which we want to reduce-- and based on which we decide its a good or bad model--- 
+Now, this type of flow is forward propogation--
+Now, what we will to deal with error---- we will travel backward and adjust our weights and bias ---after this step our error lessens--we will go on 
+updating our weights and biases until the error minimize or error is least. This is backward propogation.
+
+Now, 1 feed forward propogation has 1 forward propogation and 1 back propogation
+
+Now, implementation of fwd and backward propogation in ANN is called as perceptron algo-- because perceptron doesnt need manual intervention for adjustment of weights.
+It can learn and adjust its weight by itself 
+
+But how brain functions---
+Computation model is inspired by human brains-- 1. massively parallel distribution system made above the simple processing unit.
+2, Synaptic connections strengthen amongst the neuron which is used to store aquired knowledge--
+3. Knowledge is aquired by the network from its environment through its learning process through a learning process.
+
+untitlted2.png-------------explain that-- Y=wX+b---
+
+
+Fwd and backwd propogation---
+
+z11(1st neuron of 1st layer)=x1w1+x2w2+x3w3+b1===>x1*3+x2*7+x3*2-40000=======>H1=sigma(z11)
+
+z12(2nd neuron of 1st layer)=x1*w4+x2*w5+x3*w6+b2=====>x1*3+x2*2+x3*4-20000======>H2=sigma(z12)
+
+Now,some random weights are initialized to H1 and H2 alongwith bias-- so,z21=H11*w7+H12*w8+b3, z21=H11*w9+H12*w10+b3
+
+0=sigma(z21) 
+
+error=((y=ypred)^2)/2   
+
+Now,the o value is dependent on i/p value,weigts,and biases--- now we cannot change i/p values, activation func is defined before training of NN statrs.
+These values are known as hyperparameters and are assigned before training starts. 
+The only thing that can be changed during training are weights and bias values,wich are known as parameters.
+
+So to reduce the error,we will change value of weights and biases.
+
+To update weights and biases, we will use gradient descent.The thing that we need to remember cost wrt w is it should be conti,and it should be diffeentiable.
+
+Grad descent update equn--w=w-alpha*dE/dw=============>dE/dw is the rate of change of error.It givesthe direction of min error.
+alpha is the lr.
+
+stopping criteria for grad desc--1.error is not updating,no. of epochs reached.
+
+Understanding fwdpro mathematically-- see diary----
+
+gender,age,hypertention,smoke,stroke
+1,3,0,0,0
+1,58,1,1,1
+0,8,0,0,0
+0,70,0,1,1
+1,14,0,0,0
+1,10,0,0,0
+X=4*6,y=1*6
+
+Architecture of our model-- Since,we have 4 independent features ,we have 4 neurons ini/player. Now,lets say we have 5 neurons in our hiddenlayer.This 5 is not fixed.
+For,simplicity we have only 1 hidden layer and each neurons in the previous layer is connected to each in the hidden layer.Finally,since we have a binary classification
+problem,a single neuron in the o/p layer will solve our problem.
+
+The weight matrix is between i/p and hidden layer.The size of the weight matrixwill be 4*5.So,w_ih=4*5 and weight matrix betw hidden and o/p layer is w_ho=5*1
+
+So,our data we will represent in matrix form as--
+
+1,1,0,0,1,1
+3,58,8,70,14,10
+0,1,0,0,0,0
+0,1,0,1,0,0
+
+gives 4*6
+
+now,lets say the weight matrixis 4*5-- this is a random weight matrix..
+.3,.8,.8,.7,.2
+.6,.3,.8,.1,.2
+.8,1,1,.6,.7
+1,1,.2,.7,.1
+
+The element wise product of i/p and weifght matrix is performed--
+1*.3+3*.6+0*.8+1*1=2.1----- this is the value for our 1st neuron to the hidden layer.
+
+then,we will apply sigmoid activation func : sigma(2.1)=0.89
+
+lly,
+0.84,
+0.96,
+0.73,
+0.68
+
+So,this is our 5*1
+
+lly,we will repeat this step forall  the observations in the dataset--- and so,wewill have 5*6 observations.
+
+i.e. 5 new features for all the 6 observations.Now,instead of individually calculating o/ps for each observation seperately, what we can do is parallize this using
+matrix mulitplication. What we can do is--Y=W.T*X
+
+W.T=5*4, X=4*6====>5*6
+
+O/p=sigmoid(Y)
+
+Now,lets say our randomly initialized wt value between hl and o/p --i.e. 5*1
+0.2
+0.5
+0.1
+0.2
+0.7
+
+and my desired o/p is 1*6i.e. single o/pfor all 6 operations inmy dataset.
+W.T*Y=====>1*5*5*6====>1*6
+
+applying sigmoid() will give final o/p.
+
+X=4*6 
+W_ih=4*5 
+z1=W_ih.T*X + b_ih====>5*6
+h1=sigma(z1)=====>5*6
+
+W_ho=5*1
+z2=W_ho.T*h1+ b_ho==========>1*5*5*6========>1*6
+
+O=sigma(z2)===1*6
+
+Understanding Backward Prop--
+in the backward propo,first step is to get error.E=(Y-O)^2/2
+
+Our task is to update W_ih,b_ih,W_ho,b_ho and for this we will calc rate of change of these parameters w.r.t error.
+
+dE/dW_ho , dE/db_ho , dE/dW_ih, dE/db_ih
+
+Once we have these values, we can update the weights and biases using the update equ of gradient dscnt algo.
+
+lets, see-- dE/db_ho--for this there are series of steps-- the error is dependent on o/p so dE/dO-->now,this o/p is dependent on hidden layer z2,so-- dO/dz2
+and finally,z2 is dependent on b_ho, so,dE/db_ho=dE/dO*dO/dz2*dz2/db_ho--------------->wichis nothing but a simple chain rule--
+
+dE/dW_ho=dE/dO*dO/dz2*dz2/dW_ho 
+
+dE/dW_ih=dE/dO*dO/dz2*dz2/dh1*dh1/dz1*dz1/dw_ih
+
+
+dE/db_ih=dE/dO*dO/dz2*dz2/dh1*dh1/dz1*dz1/db_ih
+
+Now, since E=(Y-O)^2/2, partial derivative dE/dO=(2*(Y-O)*(-1) )/2====(O-Y)
+
+now, O=sigma(z2)===> dO/dz2=sigma(z2)*(1-sigma(z2))======>can be said like (O)(1-O)
+
+now, z2=W_ho.T*h1+ b_ho==========>dz2/db_ho=1---->i.e. rate of change of error w.r.t b_ho=1
+
+i.e. 
+dE/db_ho=(O-Y)*O(1-O)*1
+
+dE/dW_ho=(O-Y)*O(1-O)*h
+
+
+dE/db_ih=(O-Y)*O(1-O)*W_ho*h1(1-h1)*1
+
+dE/dW_ih=(O-Y)*O(1-O)*W_ho*h1(1-h1)*X
+
+Once we have calculated these parameter values,next step is to update these parameter values.For, which we canuse gradient descent equation. 
+
+W_ho=W_ho-alpha*(dE/dW_ho)
+
+b_ho=b_ho-alpha*(dE/db_ho)
+
+
+W_ih=W_ih-alpha*(dE/dW_ih)
+
+
+b_ih=W_ih-alpha*(dE/dW_ih) 
+
+Backward propo in matrixform----
+
+Now,the shape of dE/dO=(O-Y) is 1*6
+and dO/adz2=O(1-O)=1*6
+
+dz2/dW_ho= shape of h1 which is 5*6
+
+
+W_ho=W_ho-alpha*(dE/dW_ho) ,now to update W_ho ,the gradient descent is applied, and the shape of W_ho should be equal to dE/dW_ho.
+
+dE/dW_ho=dE/dO*dO/dz2*dz2/dW_ho 
+
+now, dE/dW_ho=(1*6)*(1*6)*(5*6)--->since shapes are diff we cannot apply matrix multipliction.
+
+here,we can do element wise muliplication of dE/dO*dO/dz2===>which will give o/p of shape 1*6--->then we have 2 matrix of shape (1*6)and(5*6) and we want 
+the o/p of shape (5*1). So we can take transpose of  [dE/dO*dO/dz2].T===>(6*1). Now, if we take dot product of dz2/dW_ho X [dE/dO*dO/dz2].T ====>(5*6)*(6*1)==>(5*1)
+
+therefore,during backward propogation, instead of using dE/dW_ho=dE/dO*dO/dz2*dz2/dW_ho, we will use dE/dW_ho=dz2/dW_ho X [dE/dO*dO/dz2].T
+
+lly,dE/db_ho=dz2/db_ho X [dE/dO*dO/dz2].T
+
+
+dE/dW_ih=dz1/dw_ih * [dh1/dz1*dz2/dW_ho X[dE/dO*dO/dz2]].T
+
+
+dE/db_ih=dz1/db_ih * [dh1/dz1*dz2/dW_ho X[dE/dO*dO/dz2]].T
+  
+* here represents element wise multiplication, and X - dot product
+ 
+ Numpy-----It is a library which performs exceptionally well with matrices and multidimensional arrays. It is a packge for scientific calc in pythn and its very
+helpful for performing basic linear algebra operation,statistical operations and manymore. 
+
+Neural_Network_from_scratch_using_NumPy.ipynb---
+
+
+
+
+
+#--------------------------lecture 3----
+
+Same ann can help u to solve both classification and regression problems. This is Fwd Propogation.
+
+
+
+--------GradientDescent.ipynb ---
+
+Now, activation func-- y=mx+c, mse between (y and ypred)
+in backward prop-- we will adjust weights
+
+
+----------------Lecture 4----------------
+
+Lets suppose we have dataset with few cols and target.
+
+c1, c2, c3, c4 and t------------untitled.png
+
+Now, w=if we have aroung 2000 rows then we divide it into 70 , 30 %..now again 70% data is divided into different batches with 1 batch containing 30 rows.
+1400/30 = 46 batches
+
+x1,x2,x3 are i/ps and 1,2,3,4,5,6 are part of hidden layers
+
+
+tensorflow_intro.ipynb-----------------------------------------------------------------------------------
+
+tensorflow.keras import Sequential helps in initializing ann, and Dense helps in creating hidden layer.
+NOw, each x1, x2 x3 are conected to all the neurons .. now i/p from dense layers are directed for o/p
+
+
+-----
+Modeling Artificial Neural Network
+
+4.1 Artificial Neural Network
+
+An artificial neural network is a combination of multiple layers of neurons, each layer can have multiple neurons. 
+These neurons are interconnected with the neurons in the other layers. 
+
+The Input layer has multiple neurons, one for each feature. The Output layer can either have one neuron for regression and binary classification or 
+multiple neurons, one for each class in case of multi-class classification. All the other layers in between are the Hidden layers.
+
+The output from each layer of neurons becomes the input of the next layer of neurons.
+
+Now that we have understood what an artificial neural network is, the question here is, why do we need neural networks when a single neuron can be used for 
+regression and classification?
+
+Well, a single neuron can only learn linearly separable patterns. 
+Most of the time the data is non-linear in nature, this is where the neural networks come into the picture. 
+
+
+The first layer is a linear combination of the input. 
+However, the activation function provides a non-linear output. The next layer combines the non-linear outputs of the first layer in a linear way 
+i.e weighted sum of the values. Hence neural networks can fit nonlinear functions.
+
+
+
+---ANNR_on_fake_reg_.ipynb----
+
+---ANNC_on_churn_modelling.ipynb--
+
+
+
+
+
+
+#---------------Lecture 5
+
+ Most of the time the data is non-linear in nature, this is where the neural networks come into the picture. 
+
+
+The first layer is a linear combination of the input. However, the activation function provides a non-linear output. 
+The next layer combines the non-linear outputs of the first layer in a linear way i.e weighted sum of the values. 
+Hence neural networks can fit nonlinear functions.
+
+
+4.2 Activation functions-----------activation functions.png----- Captures complex relationship between data
+
+Threshold function--- almost like sigmoid func,  but the edge is very sharp here.
+
+f(x)=1if x>=0
+    =0 if x<0
+
+LinearActivation Function--
+y=aX
+eg. y=X,y=4X,etc.
+i/p range- -inf to inf
+o/p range -inf to inf
+
+The condi for activation func is ,it should be continuous and should be differentiable at all the points becuase in back propo process we calcthe gradients to
+update the parameteres. In this process we also calc the partial derivatives of activation funcs used in the n/w.  
+
+linear activation func derivative-- dy/dx=a
+
+Now,the linearactiv func doesnot capture the non linearrelationships in data.Hence this func is often used at the o/p layer fora regression problem.
+
+Nonlinear activation funcs----  
+
+Sigmoid function
+A sigmoid function is a mathematical function having a characteristic "S"-shaped curve or sigmoid curve, 
+the output of a sigmoid function is always between 0 - 1. Hence it can be used as an activation function for
+binary classification keeping a threshold value of 0.5, if sigmoid function output is >= 0.5 then it is considered a positive class 1 or else negative class 0.
+
+
+
+
+sigma(x)=1/(1+e^-x)
+
+i/p range : -inf to +inf
+o/p range 1 if x>=0, 
+          =0 if x<0
+derivative : dsigma/dx=sigma(x)(1-sigma(x))
+The derivatives or the gradient values for this activation functions are pretty small. It returns probabilitites for the o/p class.
+
+The sigmoid function can be used as an activation function in the output layer, but should not be used in the hidden layers. 
+The reason is, the range of the input value passed through the input layer lies between -1 to 1  ( after standardization ), 
+if the sigmoid function is used in the hidden layers then the same value will be converted into a range of 0 to 1, 
+breaking the uniformity of the neural network. This is where the hyperbolic tangent function comes into the picture.
+
+
+Hyperbolic tangent function
+
+The hyperbolic tangent function is a mathematical function, this function is easily defined as the ratio between the hyperbolic sine and the cosine functions. 
+The output of this function always lies between -1 to 1, making it suitable for the hidden layers to maintain the uniformity of neural networks. 
+
+f(x)=tanh(x)=f(x)=2/(1+e^-2x) - 1
+but.. 
+sigma(x)=1/(1+e^-x)==> tanh(x)=2sigma(2x)-1
+i/p range : -inf to +inf
+o/p range : -1 to 1
+
+dtanh/dx=1-tanh^2*(x)
+
+Here, gradient or derivative values are larger than sigmoid activation function value.
+
+
+But both sigmoid and hyperbolic tangent functions face the vanishing gradient problem. 
+
+The vanishing gradient problem is encountered when training artificial neural networks with gradient-based learning methods and backpropagation. 
+In such methods, each of the neural network's weights receives an update proportional to the partial derivative of the error function with respect 
+to the current weight in each iteration of training. The problem is that in the case of the sigmoid and hyperbolic tangent function, 
+the gradient will be vanishingly small, effectively preventing the weight from changing its value. 
+In the worst case, this may completely stop the neural network from further training.
+
+##The Maximum value of the derivative of the sigmoid function is just 0.25.
+
+
+
+
+To avoid vanishing gradient problems, the Rectified Linear Unit function comes into the picture.
+
+Rectified linear unit(ReLu)
+
+f(x)=max(0,x)
+i/p range : -inf to +inf
+o/p range : 0 to inf
+dReLu/dx= 0 for x<0, 1 for x>0,
+   	  Not defrentiable at  x=0 or 0 for x=0
+i.e. the -ve neurons donot get activated during forward propogation and some of the weights and biases donot get updated during back propogation.
+
+The rectified linear activation function is a piecewise linear function that will output the input directly if it is positive, 
+otherwise, it will output zero. It has become the default activation function for many types of neural networks because a model that uses it 
+is easier to train and often achieves better performance.
+
+
+Leaky Relu(x)=0.01x for x<0 and x for x>=0 .. tf, LeakyRelu(x)=max(0.01x,x)
+dLeakyRelu(x)/dx=0.01 x<=0, 1 x>0
+
+Both ReLu and LeakyRelu are used in hidden layers.
+
+
+For multicalss classification-- we use softmax activation func : exp(z_i)/summation_j(exp(z_j))
+it calculates relative probabilities. Its a nonlinear activation func.
+when the no. of calsses is 2, it becomes same as sigmoid activation func.
+
+
+The softmax function is a function that turns a vector of K real values into a vector of K real values that sum to 1. 
+The input values can be positive, negative, zero, or greater than one, but the softmax transforms them into values between 0 and 1 so that 
+they can be interpreted as probabilities. If one of the inputs is small or negative, the softmax turns it into a small probability, and if the input is large, 
+then it turns it into a large probability, but it will always remain between 0 and 1.
+
+
+
+The softmax function can be used as an activation function in the output layer for the multi-class classification problems. 
+The output layers must consist of n number of neurons for n different classes. The softmax function will return a probability value 
+for each neuron in the output layer. Since each neuron represents a class, the final output will be the class with the highest probability value.  
+
+The activation func is just another hyperparameter in NN.Still its important to select the proper activation funct.
+
+Linear activation func is used for regression probelms. And is generally  used at the o/p layer.
+
+Sigmoid activation func--- returns probabilites and is used at the o/p layer for binary classification task.
+
+ReLUand TanH--these are the non linear funcs used at hidden layers.
+
+Softmax-returns proba for each class,used for multiclass classification,used at o/p layer.  
+
+Now,when to use which function i.e which activation func to  use in hidden layer and which one in o/p layer---
+
+ANN--Relu in hidden layer, and if its a classification problem then u can go for Sigmoid,in case ofregression problemnoneed of any activation funct on o/p layer. 
+
+CNN--in hidden layer,depending on the problem u can choose relu,Sigmoid or softmax at o/p layer
+
+RNN--Sig,Tanh in hidden layer for o/p its a continuous value, so we donot need to give any activation func on o/p layer
+
+Now,in case of breast-cancer dataset, we have target as benign or malignant-- tell me which activation func u r going to use in o/p layer?
+sigmoid or threshold--because it has 2 labels
+
+Sigmoid and tangent are avoided sometimes due to vanishing gradient problems.
+
+Relu works in both regression or classification problem.
+
+
+
+---
+
+
+
+Optimizers------
+
+1.Gradient Descent
+The goal here is to minimize the error rate and it uses sumof residuals to minimze the error.
+
+theta_i=theta_i - alpha*dJ/dtheta_i
+
+where, theta_i is parameter, alpha=learning_rate  and dJ/dtheta_i is gradient or slope
+
+Gradient descent is an algorithm for finding the minimum of a differentiable function. 
+It takes steps in the steepest downhill direction until minima is reached.
+Gradient descent is an iterative process, to find the minimum of a function we take steps proportional to the approximate gradient of the function 
+at the current point.
+
+
+Types of gradient descent
+
+
+Batch gradient descent  
+
+Start with any random w value.
+Calculate gradient G of the function f(w) for that w value, using all data points in the entire training data set.
+Update the w value.
+This will consume huge training time.
+
+entire dataset for updation
+Cost func reduces smoothly.
+computation cost very high.  
+
+Stochastic gradient descent
+
+Start with any random w value.
+Calculate gradient G of the function f(w) for that w value, using any one random data point from the entire training data set.
+Update the w value.
+Much faster than batch gradient descent.
+
+single observation for updation
+lot of variations in cost function
+
+
+Mini-batch gradient descent
+
+Mini-batch gradient descent is a combination of the stochastic gradient descent and batch gradient descent. It splits the training data into small batches and performs the update on these batches. Therefore it results in a balance between the efficiency of batch gradient descent and the robustness of stochastic gradient descent.
+
+
+subset of data for updation
+smoother cost func as compared to SGD.
+
+Gradient Descent helps to reduce error--In the 1st fwd pro the error that i am receiving is lets say 5-- now i want to reach a point where errror is 0---
+and currently we are at error 5 -- So we iterate such that this error comes down-- 5,4,3,2,1,0.. ie. in each iteration we are learning-- with a learning rate lr,
+because of which error is decreasing. now, if this learning rate is too slow, then we will take alot of iterations to reach 0 or we might never reach 0.
+And if this lr is too high..then.. the gap between n and n+1 will be high.. and in an iteration it is possible that u will miss the global minima because u r 
+taking bigger steps. Our main goal is to reach 0 with min efforts and min error..by default lr is around 5%.
+
+Now, we are at 0, but how we will know that we are at best place having min error. Lets say at n+5 my error is min, then to know this is a min error, we 
+should must take one more step-- i.e. n+5 is 0 eror and n+6 is 1 error , so we say at n+5 we are at best place..
+
+This is what gradient descent does. It helps us to reach a point where error is min.
+
+So, what we do is, we have feature x, we train the model,check the score, adjust weight to minimze err and retrain the model. In this model both fwd and backward
+propo is done.This is an iterative process to minimize err.
+
+In ML we train our model on complete training dataset. BUt here we do batch wise training..Now, gradient descent uses t2o functions.. 1 is convex func, 2 is non 
+convex func---the convex func follows u trajectory and finding global minima is easy... but in case of non convex func.. it has many ups and downs...
+------untitled(2).png----explain
+and when model is at 1st down.. model thinks this is the min...and it will never reach global minima..by default gradient descent use convex func...
+but it depends.. if on a given dataset we are interested on local minima then we go for non convex func...
+
+Now, in backward prop we assign new weights to train our model-- the formula for weight updation is---
+
+new weight=old weight-lr*(derivative of mse wrt weight i.e d(mse)/dw)
+i.e 
+Mean squared error= 1/n(sum of all the values 1 to n * (y-yi)^2)
+
+Now, if we have 1 million data in our dataset,then to process this data,it might use 1 million micro secs to compute-- hence it is time consuming .
+ 
+
+Stochastic GD---Uses only 1 point to calc the error.
+
+(y-yp).. but this doesnot give exact picture of how model is behaving..
+
+MiniBatch GD---
+
+
+Mini Batch Gradient Descent instead of going over all examples, it sums up over lower number of examples based on the batch size and 
+performs an update for each of these batches. - 
+
+Mean squared error= 1/k(sum of selected datapoints 1 to k * (y-yi)^2)  where k<n
+
+
+------------------See the diag in GDandOptimizers.png----------- Explaind in diary as well---
+
+We have seen Gradient Descent algorithms .
+
+The update eqn for GD are: theta_i = theta_i - alpha * (dJ/dtheta_i)
+where,theta_i is the parametre  and (dJ/dtheta_i) is the partial derivative which tells us the rate ofchange of error or the cost funcion w.r.t the parameter theta_i.
+alpha is lr and J is the cost func
+ 
+
+Problems with Gradient Descent are:
+1. getting stuck at local minima
+2. Same leraning rate throughout the training process.
+
+Now, when we are stuck at localminima , we need some kind of push to reach to global minima.
+so,to push ball out of local minima we need some accumulated speed kind of thing. In termsof NN,wecan say tht accumulated speed is equivalent to 
+weighted past gradients  and the equn to calc this is--
+
+
+v_t = beta*v_(t-1) + (1-beta)*dJ/dtheta  ----------v_(t-1) is the previous accumulated gradient.
+
+beta decides how much weightage should be given tothe current grad and to the past grads.
+
+generally,beta value is taken as 0.9 
+
+
+where theta_i=theta_i-alpha*v_t--- this new grad will now be used to update the parameters of the NN.
+
+and this is known stochastic grad descent with momentum.
+
+SGD with Momentum from Scratch.ipynb-----------------------------
+
+
+RMSProp------------------
+
+There have been proposed different options to automate this tuning. One of the successful scheme is AdaGrad.
+
+AdaGrad’s algorithms dynamically incorporate knowledge of the geometry of the data observed in earlier iterations to perform more informative gradient-based learning.
+
+Adaptive Gradient Algorithm (Adagrad) is an algorithm for gradient-based optimization. 
+The learning rate is adapted component-wise to the parameters by incorporating knowledge of past observations.  
+It performs larger updates (e.g. high learning rates) for those parameters that are related to infrequent features and smaller updates (i.e. low learning rates) 
+for frequent one. It performs smaller updates As a result, it is well-suited when dealing with sparse data (NLP or image recognition) 
+Each parameter has its own learning rate that improves performance on problems with sparse gradients.
+
+Advantages of Using AdaGrad
+It eliminates the need to manually tune the learning rate
+Convergence is faster and more reliable – than simple SGD when the scaling of the weights is unequal
+It is not very sensitive to the size of the master step
+
+
+----U can show SGD_GIF file-----
+
+Optimizers-----------------------------------
+
+Gradient Descent with Momentum--
+
+Momentum
+A very popular technique that is used along with SGD is called Momentum. 
+Instead of using only the gradient of the current step to guide the search, momentum also accumulates the gradient of the past steps to determine the direction to go.
+The equations of gradient descent are revised as follows.
+i.e. as the training progress, the learning rate is updated as per the cost function . We use sum of the past gradients neta,=
+neta=summation of i=1 to t-1[dJ/dtheta]^2
+, and use this to update the learning rate.
+
+Squaring is done to remove the effect of +ve and -ve.
+
+and now, instead of plain Gradient Descent, theta_i=theta_i - alpha*dJ/dtheta_i , we use- theta_i=theta_i - (alpha/sqrt(neta))*dJ/dtheta_i
+
+but after sometime, (alpha/sqrt(neta))*dJ/dtheta_i tends to zero, which will lead to convergence, therefore, we can use the weighted sum of gradients,
+i.e. some weight is given to the previous gradients and some to the current gradients---
+
+v_t = beta*v_(t-1) + (1-beta)*dJ/dtheta
+
+where, v_(t-1) is previous gradient
+
+where theta_i=theta_i-alpha*v_t
+
+The first equations has two parts. vj is the gradient that is retained from previous iterations. 
+This retained gradient is multiplied by a value called "Coefficient of Momentum" which is the percentage of the gradient retained every iteration.
+
+SGD with momentum solves the problem of getting stuck at local minima using the sum of previously accumulated gradients.
+
+Almost always, gradient descent with momentum converges faster than the standard gradient descent algorithm. 
+In the standard gradient descent algorithm, you would be taking larger steps in one direction and smaller steps in another direction which slows down the algorithm. 
+In the image shown below, you can see that standard gradient descent takes larger steps in the y- direction and smaller steps in the x-direction. 
+If our algorithm is able to reduce the steps taken in the y-direction and concentrate the direction of the step in the x-direction, 
+our algorithm would converge faster. This is what momentum does, it restricts the oscillation in one direction so that our algorithm can converge faster. 
+Also, since the number of steps taken in the y-direction is restricted, we can set a higher learning rate.
+
+show the convergence of gradient descent---slow but very straight line
+
+convergence of mini batch gd is zigzag line because of too much convergence of each batch and might take more time to converge.
+
+
+
+2.RMSProp
+
+In order to reduce convergence and adjust learning rate,i.e. as my error is reducing iwant to reduce my learning rate too. This algo is calledas RMSProp.
+
+The RMSprop optimizer is similar to the gradient descent algorithm with momentum. The RMSprop optimizer restricts the oscillations in the vertical direction. 
+Therefore, we can increase our learning rate and our algorithm could take larger steps in the horizontal direction converging faster. 
+The difference between RMSprop and gradient descent is on how the gradients are calculated. 
+The following equations show how the gradients are calculated for the RMSprop and gradient descent with momentum. 
+The value of momentum is denoted by beta and is usually set to 0.9. If you are not interested in the math behind the optimizer, 
+
+mu_t=beta*mu_(t-1)+(1-beta)*[dJ/dtheta]^2==================>squaring is done to remove the effect of sign
+theta_i=theta_i-alpha/(sqrt(mu_t)+epsilon)*(dJ/dtheta) where, theta_i is the sum of sqrs of previous gradients.
+
+now, when, sq of gradients is increasing, mu_t is increasing, therefore, lr is decreasing, i.e. alpha/(sqrt(mu_t)+epsilon) decrease. 
+
+Sometimes the value of mu_(t-1) could be really close to 0. Then, the value of our weights could blow up. 
+To prevent the gradients from blowing up, we include a parameter epsilon in the denominator which is set to a small value.
+
+i.e. in rmsprop,if error is more ,then lr is high,if error is lesser then lr is small.
+
+Thus,rmsprop solves the problem of same lr. 
+
+Now, zig zag convergence of minibatch gd is more smooth because the high convergence rate of mini batch is reduced. This convergence rate is controlled by mometum.
+
+RMSProp is the default optimizer,which we can change to Adams Optimizer. 
+
+Adam optimizer------------------------- sgd with momentum + rmsprop 
+
+The Adam optimization algorithm is an extension to stochastic gradient descent that has recently seen broader adoption for deep learning applications 
+in computer vision and natural language processing.
+
+Stochastic gradient descent maintains a single learning rate for all weight updates and the learning rate does not change during training. 
+On the other hand, Adam is an adaptive learning rate optimization algorithm. It is much faster than the stochastic gradient descent. 
+Hence making is suitable for large neural networks.
+
+Now, rmsprop reduce lr, abd the by default optimizer in NN is rmsprop.
+
+But we can change it to adam--- it is the combination of rmsprop and SGD with momentum -
+
+SGD_with_momentum=v_j = beta1*v_(t-1) + (1-beta1)*dJ/dtheta
+
+and, RMSProp=mu_t=beta2*mu_(t-1)+(1-beta2)*[dJ/dtheta]^2,
+
+here, beta1 and beta2 are different,
+
+theta_i = theta_(i-1) - (alpha/(sqrt(mu_t+epsilon))) * v_t
+
+where, v_t is the weighted sum of current and previous gradients and
+mu_t contains sum of squares of previous gradients  which is used to scale the learning rate.
+
+Here, we compute the exponential average of the gradient as well as the squares of the gradient for each parameters (Eq 1, and Eq 2). 
+To decide our learning step, we multiply our learning rate by average of the gradient (as was the case with momentum) 
+and divide it by the root mean square of the exponential average of square of gradients (as was the case with momentum) in equation 3. Then, we add the update.
+
+The hyperparameter beta1 is generally kept around 0.9 while beta_2 is kept at 0.99. Epsilon is chosen to be 1e-10 generally.
+
+This is most used ..if u only want to adjust lr ,go with rmsprop,
+
+and if u want to adjust both lr and momentum use Adm.
+
+
+https://towardsdatascience.com/complete-guide-to-adam-optimization-1e5f29532c3d
+
+
+----------Show GD_Modmentum_Adgrad_RMSProp_Adam_Working.gif
+
+
+---------
+
+Loss function-----------
+
+ Loss functions
+------
+
+Mean squared error= 1/n(all the values 1 to n * (y-yi)^2)---------- used for regression problem where target value is contiuous.
+
+In statistics, the mean squared error (MSE) or mean squared deviation (MSD) of an estimator measures the average of the squares of the errors 
+i.e the average squared difference between the estimated values and the actual value. The MSE is the loss function that measures the quality of an estimator, 
+it is always non-negative, and values closer to zero are better. MSE can be used as a loss function for the regression problems.
+
+apart fromthis, we have mae and rmse too. 
+
+ 
+Binary cross-entropy =1/n(all the values 1 to n * yi*log(p_i) + (1-yi)*log(1-p_i)  )-- -ve avg of the log of corrected predicted probabilities.
+
+p_i is probability of class 1 and (1-p_i) of class 0.
+
+Since MSE measures the squared distance between actual and predicted value, it is not suitable for classification, as classification predicts binary or categorical output. Binary cross-entropy is used as a loss function for binary classification.
+The cross-entropy value is high whenever there is a misclassification. 
+
+
+
+
+Categorical cross-entropy  
+
+Similarly, categorical cross-entropy is the loss function for multi-class classification. 
+= -(1/n)* summation i to n * summation j to m(y_ij log(p_ij)), where n is no. of rows and m is no. of classes
+
+
+
+----------------------------------------------------Part2.webm----
+
+ann_chp-on_cancer_classification.ipynb
+
+------------------------------------6th folder----
+
+
+tensorflow_intro.ipynb
+
+neural_network from scratch using numpy for fwd and backward propogation
+
+95SOLV~1_IPY.ipynb ------on loan_prediction_data
+
+DeepLearning_on_loan_prediction_with_hyperparameter_tuning_model_improvement.ipynb
+
+
+---ANNC_on_churn_modelling.ipynb--
+
+---todaymmc_softmax_on_iris.ipynb
+
+---ANNR_on_fake_reg_.ipynb----
+============================================================
+==============================================================
+=================================================================
+====================================================================
+
+
+input_neurons=xtrain.shape[1]
+op_neurons=1
+number_of_hidden_layers=2
+neuron_hidden_layer_1=10
+neuron_hidden_layer_2=5
+
+model=Sequential()
+model.add(InputLayer(input_shape=(input_neurons,)))
+model.add(Dense(units=neuron_hidden_layer_1,activation='relu'))
+model.add(Dense(units=neuron_hidden_layer_2,activation='relu'))
+model.add(Dense(units=op_neurons,activation='sigmoid'))
+
+model.summary()
+
+model.compile(loss='binary_crossentropy',optimizer="Adam",metrics=['accuracy'])
+
+model_history=model.fit(xtrain,ytrain,validation_data=(xtest,ytest),epochs=50)
+
+prediction=model.predict_classes(xtest)
+
+accuracy_score(ytest,prediction)
+
+plt.plot(model_history.history['loss'])
+plt.plot(model_history.history['val_loss'])
+plt.title('model loss')
+plt.ylabel('loss')
+plt.xlabel('epoch')
+plt.legend(['train','validation'],loc='upper left')
+plt.show()
+
+plt.plot(model_history.history['acc'])
+plt.plot(model_history.history['val_acc'])
+plt.title('model accuracy')
+plt.ylabel('accuracy')
+plt.xlabel('epoch')
+plt.legend(['train','validation'],loc='upper left')
+plt.show()
+
+
+####################################################AV#####################################################################
+
+deepLearning Frameworks are interface,library or a tool which allows us to build dl models easily and quickly. They support GPUs.eg, PyTorch,TensorFlow,Keras.
+Keras uses tensorflow as a background.
+
+Keras imp modules--
+keras.models, keras.layers, keras.activations, keras.optimizers, keras.preprocessing,keras.applications
+
+Keras.models has 2 methods- sequential and functional.Sequential is for simple dl models and Functional for complex dl models.
+
+Keras.layers- input, dense for hidden and output, conv2d etc.
+
+keras.activations--sigmoid,tanh,relu,etc
+
+keras.optimizers--sgd,adam,rmsprop,etc.
+
+keras.preprocessing for image data,text data,etc
+
+keras.applications for pretrained models like VGG16,ResNet,etc 
+
+9_3_Loan_Prediction_Data_preperation.ipynb using loan_dataset.csv
+
+#--------------------------------------------------------------------
+
+what are images and how they are stored in computer?
+Deep Learning techniques are mostly used for unstructured data, such as text data and image data.the pictures are stored as pixels and it has dimensions.
+The dim of the image is given as no. of pixels in X and Y.24 pixels acorss height and 16 among width.Tf, the dim of this image is 24*16.The pixels are stored as some pixel values which denote the intensity of pixel values.For black and white image, we have pixel values ranging from 0 to 225.The smaller no. tells the darker shades while the larger nos, closer to 255 tells the lighter shades. So we have matrix of numbers and this matrix is also known as channel. In grey scale image , we have only 1 channel.
+In case of colored images, we have 3 channels for 3 colors-red green and blue.Each of these matrices have image ranging from 0 to 255.Finally all these channels are superimposed and gives N*M*3 i.e. no. of pixels around ht. * no. of pixels around width * 3.
+
+Now, the diff image formats in which the image is stored are grayscale images,rgb images,rgba images and mri images.
+
+grayscale image--stored as a 2D matrix,matrix shape=height * width,range of pixel values is between 0-255.These nos. represent the shade or the intensity of pixels.
+0 for black, 255 for white.
+RGB images are stored as 3 dim images. shape-height*width*channel--channels are 3-red,green and blue.Each channel is a matrix of no. stacked on one another.
+RGBA format-images are stored as 3 dim images. shape-height*width*channel-- 4 channels--red,green , blue,alpha. Alpha contorls opacity or transparency of colors.
+The range of alpha values is betweeen 0-255.
+MRI images-4d matrix. Matrix shape represents-ht*width*slices*channel.With the help of slices , image of the object is captured at different depth.All of these images of these particular slices are stacked together. For eg. CT Scan,MRI.
+
+reading and stacking images.ipynb-------------folder getting started with images.---beagle-dog,car,dog,image-gray,....
+converting images into different formats.ipynb----------
+
+Extracting edges from images--pixels on the edge have a significant difference in values. Compare neighbouring pixel values to find edges. A matrix or kernel is used for comparing values.Higher the diff-pixel is close to the edge. Lower the diff - pixel is not close to the edge.
+
+Prewitt and sobel kernel.
+
+extracting edges.ipynb-----
+
+solving image classiifcation using keras----
+
+neural networks using keras--------------upload dataset.zip into drive.
+
+Early stopping--keep track of a validation loss or validation acc matrix. If the value is not changing for let's say 5 continuous epochs-- then stop the training.
+For eg. metric - validation loss, threshold-0.01,no. of epochs-5, i.e. if validation loss is not changing for 5 successive epochs by 0.01 then stop the training.
+
+Early Stopping in neural networks using keras.ipynb
+
+dropout in neural networks.ipynb
+
+gradient clipping in keras.ipynb
+
+vanishing and exploding gradients.ipynb
+
+weight initialization---- random normal initaialization. Glorot/Xavier normal initialization----mean=0,std dev=sqrt((2/fai_in+fan_out)),He normal initia
+
+batch normalization--lets say we have i/p x1,x2,x3,x4 and w1,w2,w3,w4,...etc are weights given to hidden layers.Lets say the bias term is 0 and activation func for these layers is set to sigmoid.We normalize i/ps before sending them to the model.Now, the reason for normalizing values is it speeds up the training process.Using these normalized values we perofrm fwd propogation. h1=sigma(dot product of W1 and normalized i/ps),h2=sigma(W2h1)====>sigma(W2*sigma(dot product of W1 and normalized i/ps))... continuing this till O=sigma(W_l*h_(l-1)). Now, initially the i/ps were normalized but as we compute the hidden layer performing dot products,the values are not normalized anymoer. So, what batch normalization does is it normalizes the activations of these hidden layers, so if u apply batch normalization on a particular layer , it normalizes the activation functs of that particular layer. Mean and std dev is used to normalize -- mu=1/h*summation(h1), 
+std dev=(1/m*summation(h1-mu)^2)^1/2
+h_inormalization=(h_i-mu)/(sigma+epsilon)
+this makes the distribution of hidden layers between 0 and 1. However we donot want distribution of all hidden layers to be between 0 and 1 , so we apply some learnable parameters to these normalized activation.So, h_i=gamma*h_i(norm)+beta. Here gamma and beta are the learnable parameters of the batch normalization layer which are learned during the back propogation process.
+
+Batch norm adv is it speeds up the training process.Since it ensures that hte o/p from a particular layer will have the same mean and std dev,i.e. they are normalized hence it can possibly reduce the internal covariate shift.
+
+batch normalization in keras.ipynb
+
+image data augmentation--
+
+image augmantation technique.ipynb
+
+image augmantation on emergency vs non emergency.ipynb
+
+image generator and fit generator.ipynb
+
+model checkpointing.ipynb
+
+CNN---It is one of the most commonly used dl algorithm.The problem with multilayer perceptron is they loose the spatial orientation of the contents in the image.For eg if we swap 1 eye with nose in the picture of a dog , then its not dog image anymore.The MLP uses 1 dimensional image to identify or classify the images where as CNNs use the 2 d representation to identify them, thus cnn preserves the spatial orientation. MLP might suffer from parameter explosion problem with even a single layer added. And CNN preserves spatial orientation and reduces learnable parameters. In MLP, we have i/p layer->hidden layer->o/p layer. and hidden layers do feature extraction.So in CNN- we have  i/p layer->Convolution layer->hidden layer->o/p layer.Both conv layer and hidden layers acts as a feature extractor.
+
+The conv layer use filters for feature extraction.Now the pixels into edges are not taken into account.The pixel at top corner, doesnot have any pixel above and on left of the pixel value.Due to which the top pixel value is not participating in the operation and so, the size of the feature map becomes smaller after every convolution operation.So to tackle this problem, we add zeros on the boundaries of the filter. i.e padding and then apply filter.The 2 types of padding tech are same- the o/p size is same as the i/p size after the conv operation. Another tech is valid--which means no values are padded on the edges of the image.and the size of the feature map reduce. Calc shape of feature map--o/p height=((i/p height-filter height)/row stride) +1,o/p width=((i/p width-filter width)/col stride) +1
+
+Filters in Conv layer--Each conv layer can have more than a single filter.Secondly, the values in these filters are not fixed and are learned during the training process,during back prop..just like the hidden layer weights are learned during back prop process.
+
+lets say, img dim=720*960.... and filter size=3*3, col stride=1,row stride=1,padding tecgh=valid, then 718*958
+
+Now, lets say instead of single filters, 4 filters of 3*3 are used.Then,718*958*4 feature maps. Now, these 4 filters can have diff values, hence,features extracted from each of the 4 filters can be different.Now, the no of filters becomes channel in the o/p image. Now, this is for a greyscale image where image itself has a single channel. But coloured images itself has more than 1 channel, i.e. 720*960*3-->filter size=3*3*3 for no. of channels. If u donot add the channels,then it is handled automatically. Then feature maps= the op of the operation is again a 2d image.==>718*958.
+
+in case of rgb image--720*960*3===>3*3*3*N===>718*958*N
+
+Parameter Sharing and local connectivity in CNN----Local connectivity--each o/p value takes i/p from a (small) local group of pixel values from the complete image.
+This ensures that the filters produce strongest response to spatially local i/p patterns. Parameter Sharing--Parameter sharing is sharing of filter values by all pixel values of the image to generate a particular feature map.
+
+CNN Architecture--i/p 1000*200*200*3 , where 3 is no. of channels--->conv layer 1--->32*3*3*3, 32 is no. of filters.===feature maps== 1000*198*198*32===>this is simple element wise multiplication of values.So, in order to introduce some non linearity to the func, we add an activation func.Applying activation func doesnot change the dim of the o/p.Tf o/p is still 1000*198*198*32. Now, adding anothe conv with 64 filters of dim 3*3 for 32 channels because i/p for this layer which is conv layer 1 has 32 channels.--i.e. 64*3*3*32.Tf the o/p after this conv operation will be 1000*196*196*64.Now, to get the final o/p we add, fully connected layer.Now, this layer takes only 1 dim input. 1000,196*196*64...this process of converting 3 dim matrix into 1 is known as flattening. i.e. for every 1000 images we have these many features.To deal with these o/p we have pooling layer--
+the pooling layer is used for dimensionality reduction.This makes computation easier and training faster.2 most common pooling tech are- max pooling and avg pooilng.
+lets say we have i/p of size 4*4 and window size 2*2.--it downsamples the o/p of the conv layers by sliding the filter of some size with some stride size and cal the max or avg of the i/p.So, in the architecture it fits like--
+
+i/p(1000,200,200,3)-->conv layer 1(32,3,3,3)----(activation funct)---1000,198,198,32----->pooling layer 1(window size=(2,2),stride=2)(avg pooling tech)---1000,99,99,32---->conv layer2 64,3,3,32----(activation func)---1000,97,97,64----->pooling layer 2(window size=(2,2),stride=2)(avg pooling tech)---1000,48,48,64----->
+
+in order to generate the o/p we have the final o/p layer which gives 1000,classes.
+
+fwd prop in CNN--i/p--conv1---
+i/p X=[100*22*22] grey scale image- binary classification problem--->conv1 : Z1=conv(X,f) f=[3*3] Z1=[100*20*20]----->activation func (sigmoid is used) H1=sigmoid(Z1) H1=[100*20*20]----flatten----FC1 Z2=(W.T).H1+b but this takes only single dim i/p ,so converting the 2 d into 1 dim i.e. H1= [400*100] where W.T=[1*400],Z2=[1*100]
+O=sigmoid(Z2)=[1*100]--error E=(Y-O)^2/2
+
+Back Propogation-- The error value depends on 3 parameters--b,W.T,f.So during the back prop these values are updated. dE/dW,dE/db,dE/df. The error is not directly dependent on weight matrix. So a chain rule is used.dE/dO(O=output)
+
+dE/dO=2*(Y-O)*(-1)/2=(O-Y)
+dO/dZ2=sigma(Z2)*(1-sigma(Z2))
+tf,dE/dW=dE/dO*dO/dZ2*dZ2/dW=(O-Y)*O(1-O)*H1
+dE/db=dE/dO*dO/dZ2*dZ2/db=(O-Y)*O(1-O)*1
+dE/df=dE/dO*dO/dZ2*dZ2/dH1*dH1/dZ1*dZ1/df=(O-Y)*O(1-O)*W.T*H1(1-H1)*X
+now,because we have used convol operation between i/p X and f, so here also we will use conv operation.==>conv((O-Y)*O(1-O)*W.T*H1(1-H1),X)
+
+then, w=w-alpha*dE/dW,b=b-alpha*dE/db,f=f-alpha*dE/df===>(O-Y)==(1*100),O(1-O)=(1*100), H1=(400*100)==>(1*100)*(1*100) is element wise operation.
+tf,dZ2/dW X [dE/dO * dO/dZ2].T = (400*100)*(100*1)=400*1
+
+dE/dW=dZ2/dW X [dE/dO * dO/dZ2].T
+dE/db=dZ2/db_ho X [dE/dO * dO/dZ2].T
+dE/df=dE/dO*dO/dZ2*dZ2/dH1*dH1/dZ1*dZ1/df== conv((O-Y)*O(1-O)*W.T*H1(1-H1),X)==>(O-Y)==(1*100),O(1-O)=(1*100),W.T=(1*400),h1(1-h1)=(400*100),X=(100*22*22)
+==(1*100)*(1*100) is element wise operation.=(1*100),taking transpose, i.e.[dZ2/dH1].T x [dE/dO * dO/dZ2]==>(400*1)*(1*100)=(400*100)
+then (400*100) X (400*100)=conv((400*100),(100*22*22))Now, we reshape 100*22*22 into 22*22*100 and 400*100 as 20*20*100,  and our filter size is 3X3 tf,
+conv((22*22*100),(20*20*100)) gives the o/p of shape 3X3 which is also, 22-20+1.
+
+convolution NN and hyperparameter tuning.ipynb--
+
+model checkpointing in CNN using keras.ipynb---
+
+Transfer Learning---------------------------
+
+Learning from scratch and then processing info by yourself.The other way is to learn from exprets anduse their knowledge to learn .Until now,wewerelearning fromscratch.
+Some pre trainedmodel are- BERT for NLP,VGG16 trained on Imagenet,ULMFit, VGG16 trained on MNIST.NNs transfer their weigts and learning in the form of weights 
+nd biases.So,for our problem,emergency vs non-emergency which pretrained model we will use? So we can use VGG16on imagenet or MNIST.
+
+Now,imagenet is a dataset with 1000 categorieswith 1.2M images in train and 100k in test. While MNIST has 10 classes which are handwritten digits from 0 to9.
+So, we will go with VGG16 imagenet dataset.
+
+Transfer Learning.ipynb------
+
+
+different fine tuning tech---- 1.feature extraction---im using everythin of my NN,except the o/p layer. and giving our own layers as required.
+2.using architecture of pre trained model and train it on our dataset.
+3.train some layers while freeze others.
+
+transfer_learning_using_architecture_of pre-trained model.ipynb
+
+transfer_learning_train_some_layers_while_freeze_others.ipynb   
+
+CNN Visualization---------------------------------------------------
+
+The NN learning dilemma-- lets say we want toclassify leopard and images containg leopard data from dessert i.e. arabian leopard and snow- snow leopard.
+Now,the problem is the model starts learning the background dessert vs snow images instead of focussing on leopard. Many people say that NNs are likeblack box algos.
+
+Interpreting NN--1.Understanding model architecture.Visualize filters/weights. Extract the o/p of intermediate neurons/layers.Locate imp parts of the image accr to
+the model.
+
+We will use keras-vis to visualize our dl models.
+pip install -U -I git+https://github.com/raghakot/keras-vis.git
+
+neural network visualization.ipynb------------- in case of the cnn architecture,the filtersof the conv layer and the weights and biases of the dense layer constitute  
+as the parameters of the network. If we try to visualize our hidden layer,it will just be a vector of weights where in each weight can be plotted relative toother 
+weights which wil be in the different shadesof gray. Now,what do these weights represent-- they represent the intensity of that weighted connection from 1 layer
+toanother. This ismore intutive when we plot the filter of a conv layer.This filter shows specific parts of the image to pass through, where as rejects the 
+remaining portions.We can visualize AlexNet,ResNet ,etc,filters. We can see the patterns emerging from these filters such as the edge detectors orthe color detectors.
+Note,that we can visualize the first layer of CNN where filters are in RGB format, but as we go deeper, it is difficult to interpret the filters,since it depends
+on the previous filters.So it becomes difficult to make sense out ofit.
+Locate imp parts of the image accr to the model.Soone approach for this is we hide the sectionof the image and pass it through the model tounderstand if the model is 
+able to classify the image or how confident is the model in detecting the correct class ofthe image.This method is called creating occlusion maps.The heat map can help
+us in knowing which part of image are actually imp for the model in order to classify these images.The another approach to solve these problems is to look at the 
+gradients of the NNmodel. Suppose we take an image from a model and do fwd and bwd pass through the model,we get gradientsof weight at each layers of these models.
+All the +ve values tell us that small change in the particular pixel will increase the o/p value.Hence visualzing these gradients which ae of the same shape asof the 
+image should provide us some intution of the attention.This method basically highlights the salient image features or the salient image regions that contribut most
+towards the o/p and tf these are called saliency maps.
+
+Real World use cases of Deep Learning-- regression using deep learning--steps are-- read images as numpy arrays.Train a NN model. Apply linear acivation at the last
+layer instead of sigmoid.-- Then comes object detection-- where we can have single object with single class,multiple objects ofsingle class,multiple objects 
+from multiple classes.The task is mainly to identify coordinates of our boxes,surrounding the object and also to find class of that object.1 way is to draw
+several boxes on objects and then check if box contains an object.Another is to use dl which gives class of the object and give coordinates of bounding box.
+
+Image classification or image segmentation--is done at pixel level. Now,understanding video--video data is sequence of images. This is the eg.of sequence data.
+Now,the sequence can be of various typs--like image pixel sequence,number sequence like time series data,audio sequence,text seq.
+
+Google translation is a live eg. of neural machine translation at work.
+
+Working with text data---
+
+Corpus is a large set of texts,which consists of entiites like tweet, a news item,socia media comment,etc.Now, these entities are madeof sentences.Now, these 
+sentences are made up of tokens.Where tokens are the smaller units of text like (word,characters,n-gram).The process of splitting text into smaller units is known
+as tokenisation.
+
+Text preprocessing--consits of text cleaning and text representation.Text noise-unwantedor useless info present in text data.eg--- urls,punctuationmarks,etc.,slangs
+or non-dictionary words,spelling mistakes,
+
+Steps for text clening-fix text encoding and casing.UTF-8 is universal encoding.Noise entities removal and punctuation marks removal. We do this with the help of 
+RegEx.This use patterns in text.So,working with re module--  
+Regex in action.ipynb-----------------------------------------------------------------------
+
+Text representation---ML algo doesnt expect text as i/p. So we need to convert text into numbers.The types of text representation methods are===One hot encoding.
+Word embeddings.Now with ohe we represent all the words in the sentence as vectorsof 1s and 0s.The length of the vector isfixed for all the words in the sentence.
+and it is equal tothe sizeof the vocabularywhich is the no.of unique words in the entire text data. The longer the vocabulary,the longer the vectors. We can also
+use word embeddings .eg each vector v1,v2,v3,v4 for words in sentence- I have three dogs.This is known as word embeddings. And these vectors also carries semantic 
+info.
+
+One hot encoding--So,steps involved are--text cleaning,tokenization,vocabulary preperation,one hot encoded vectors.
+if raw text is like-
+The ball is pink.
+Pass the juice.
+The book is interesting.
+
+then,our cleaned text is like--
+the ball is pink
+pass the juice
+the book is interesting
+
+now, tokens--
+the,ball,is,pink
+pass,the,juice
+the,book,is,interesting
+
+now,vocabulary--
+ball,book,interesting,is,juice,pass,pink,the-- vocbulary size 8,hence 8tokens.Now,we will create ohe for each of the vector and size of the vector is equal to 
+size of vocabulary.Tf,size of ohe vector=8.and ohe vector=matrix of diagonal 1 matrix.
+
+one_hot-vector.ipynb
+ 
+Limitations of ohe vector--- the info captured by these vectors is limited because these oh vectorsjust represent position of a wordinthe vocabulary.
+so, we go for word embeddings--itis a vector of words and it doesnot depend on the size of the vocabulary.It also captures the context around the word. These are
+obtained by training a special NN architecture,on huge amount of text corpus.In such a vector space or contextual space,the vector of a word like car would be 
+very much similar to jeep.By similar means angle between these 2 words are very small.TO relate king and queen,its like king-man+woman=queen.
+
+Getting the word embeddings--
+1.Training of wordembedding representation from scratch.2 Pre trained word embeddings like word2vec,GloVe
+
+word_embeddings_in_action_word_2_vec.ipynb---
+
+
+Starting with Recurrent NN--to handle sequence problems.Here our task is to given a current word in the sequence,what will be the next word.So our target is predicting
+next word.Now,here we need to pass our learning from 1 timestamp to another,This can be achieved if we fully connect the hidden layers at different timestamps
+Now,since its a NN,there will be weights associated with it.So,between i/p layer and hidden layer,we have  U as weight matrix and between hidden layer and o/p layer
+we have V as weight matrix.Now,since we are passing infor from 1 hidden layer to another we have another weight matrix W,Finally,we can consider the o/p at the 
+last timestamp as the next word prediction and ignore the o/ps at the previous timestamp.  Now, depending on the problem at hand,we can  have many-to-one RNN 
+architecture or many-to-many.
+
+Functioning of RNN- task--to classify sentiment of text as +ve or -ve.----in diary see the architecture for "they are happy".
+Fwd propogation islike== H1=g(W.H0 + Ux1) where, g is some non linear function like sigmoid,relu,etc. where,H0 is randomly initialized.,then for 2nd timestamp--
+H2=g(W.H1 + Ux2).. we can go on till last step, i.e lets say H3=g(W.H2 + Ux3) and gives yhat=k(VH3),again k is an activation func, which can be sigmoid,softmax,
+or linear activation etc.
+now,back propogation through time--loss=loss(y-yhat)..lets say loss funcis rmse-- L=1/2*(y-yhat)^2, now, we want dL/dV where, dl/dV=(dL/dyhat)*(dyhat/dV)--
+and dL/dyhat=(yhat-y) and dyhat/dV where yhat=k(VH3), now, lets suppose k is a linear activation func,then yhat=VH3,then dyhat/dV=H3 
+ dl/dV=(dL/dyhat)*(dyhat/dV)=====>(yhat-y).H3
+
+Now,gradient for W==== dL/dW=(dL/dyhat)*d(yhat/dH3)*(dH3/dW)=(yhat-y).V.?===>now H3=g(WH2+Ux3),let g= linear activation func-- dH3/dW=dWH2/dW + d(Ux3)/dW---
+now d(Ux3)/dW becomes zero,because,it doesnot depend on W at all. tf, dH3/dW=dWH2/dW===>sonow,expanding this term--dH3/dW=H2.dW/dW + W.dH2/dW======>
+now dH2/dW= so,H2=g(WH1+Ux2)--- assuming g is linear activation func, H2=WH1+Ux2===>dH2/dW=d(WH1)/dW + d(Ux2)/dW====>dH2/dW=d(WH1)/dW on expanding,
+dH2/dW=H1.d(W)/dW +W.d(H1)/dW=====>now,H1=g(WH0+Ux1), now if g is a linear activation func, then H1=WH0+Ux1,dH1/dW=d(WH0)/dW+d(Ux1)/dW===> dH1/dW=d(WH0)/dW ,now,
+dH1/dW=H0.d(W)/dW + W.d(H0)/dW====>dH1/dW=H0, and  W.d(H0)/dW=0,because H0 doesnot depend on dW,and since it is an initial hidden state, and was initailized randomly.
+
+So,now replacing the values we got--
+
+dH1/dW=H0
+dH2/dW=H1+W.H0
+dH3/dW=H2+W[H1+W.H0]
+dL/dW=(yhat-y).V.[H2+W.[H1+W.H0] ]
+
+dL/dW=(yhat-y).V.(dg(z3)/d(z3))[H2+W(dH2/dW)]
+
+now, in practice g is going to be a non linear activation func--then dL/dW=(y-yhat).V.(dg(z3)/d(z3)).(d(z3)/dW), where H3=g(z3), z3=WH2+Ux3,g() is activation func.
+
+Now, dL/dU=(dL/dyhat).(dyhat/dH3).(dH3/dU)==(yhat-y).V.(dH3/dU)=====>now H3=g(WH2+Ux3),let g= linear activation func--dH3/dU=dWH2/dU + d(Ux3)/dU---now, d(Ux3)/dU=x3
+
+dH3/dU=dWH2/dU + x3===> dH3/dU=W.d(H2)/dU + H2.d(W)/dU +x3====>H2.d(W)/dU=0, tf,dH3/dU=W.d(H2)/dU +x3, now, H2=g(WH1+Ux2)--- assuming g is linear activation func, 
+H2=WH1+Ux2===>dH2/dU=d(WH1)/dW + d(Ux2)/dU====>dH2/dU=d(WH1)/dW + x2=======>H1=g(WH0+Ux1), now if g is a linear activation func, 
+then H1=WH0+Ux1,dH1/dU=d(WH0)/dU+d(Ux1)/dU===>dH1/dU=Wd(H0)/dU+x1===> dH1/dU=0+x1since H0 doesnot depend on U.
+
+tf,d(H1)/dU=x1
+dH2/dU=W.[x1]+x2
+dH3/dU=W.[W.[x1]+x2]+x3
+
+dL/dU=(yhat-y).V.W.[W.[x1]+x2]+x3]
+
+now,in case g is non linear activation func,then, H3=g(z3), z3=WH2+Ux3,dL/dU=(y-yhat).V.(dg(z3)/d(z3)).[W.(dH2/dU)+x3]
+
+dL/dV=(yhat-y).(H3)
+ 
+dL/dW=(yhat-y).V.(dg(z3)/d(z3))[H2+W(dH2/dW)]
+
+dL/dU=(y-yhat).V.(dg(z3)/d(z3)).[W.(dH2/dU)+x3]
+
+Now,updating weights-- V=V-alpha.dL/dV, W=W-alpha.dL/dW,U=U-alpha.dL/dU,alpha is a learning rate.However due to recursive components,RNN faces a problem of 
+vanishing and exploding gradients.
+
+Auto tagging system--Automatic question tagging systemon a stack exchange dataset.It is a multilabel problem.
+--Building autotagging system.ipynb or auto_tagging_rnn.ipynb -------
+
+Advanced Sequence Models-LSTM,GRU--
+
+Shortcomings of RNN--gradients of loss w.r.t weight matrices W and U depend on the partial derivatives of hidden state w.r.t W and u.
+dl/dW----dH_n/dW------dH_(n-1)/dW----dH_0/dW
+
+dl/dU----dH_n/dU------dH_(n-1)/dU----dH_0/dU
+
+Vanishing gradients-- if the values of these gradients are <1 then dL/dW,and dL/dU becomes very small almost equal to 0. Once these gradients become very small,
+the wights updation becomes almost negligible.And thus model didnot learn anything.
+Exploding gradients-- if the values of these gradients are >1 then dL/dW,and dL/dU becomes very large and again model will not learn significant rates.And give 
+poor predictions.For exploding gradients we can use gradient clipping. For vanishing gradients-- LSTM,GRU.
+
+LSTM or Long Short Term Memory network is an advanced RNN and it is capable of handling the vanishing gradient problem. LSTM has 3 parts-In the first part it chooses
+if infor from the previous timestamp is irrelevant and can be forgotten. In the 2nd part, the cell tries to learn new info from the i/p to the cell. And in the 3rd
+part,the cell passes the updatd infor fromthe current timesatmp to the next.These 3 parts are known as gates.-- Forget gate,input gate,output gate.H_(t-1) is 
+the hidden state from the previous timestamp.H_t is the current timestamp.In addition we alsohave cellsate-- C_(t-1) and C_t------------------see diag in diary---
+Hidden sate can be considered as short term memory and cell state as long term memory.  
+for eg, Bob is a nice person.Dan on the other hand is evil.Now, we start with Bob and as the fullstop comes, we switch to Dan.i.e. as the full stop comes, forget
+gate helps in forgetting about Bob.This is our first gate. f_t= sigma(X_t * U_f + H_(t-1)*W_f)  . X_t is the input from the current timestep,U_f is the weight matrix,
+H_(t-1) is the hidden state from the previous timestamp.W_f is the weight matrix associated with the hidden state. So, f_t is a no. between 0 and 1.
+c_(t-1)*f_t=0 if f_t=0
+
+c_(t-1)*f_t=c_(t-1) if f_t=1
+
+-bob knows swimming.He told me over the phone that he had served the navy for 4 long years.Now, based on the context in the first sentence,which infor is critical 
+in the second sentence.i.e. he used phone to tell he knows swimming or he served in navy.This is decided by i/p gate. i_t=sigma(X_t * U_i+H_(t-1)*W_i)
+new info N_t=tanh(X_t*U_c + H_(t-1)*W_c)-- now, the tanh here can vary from -1 to 1, c_t is cell state c_=f_t*c_(t-1)+i_t*N_t this is updating cell state.
+
+--bob single handedly fought the enemy and died for his country.For his contributions,brave ___. Now, in this task we have to finish the second sentence.
+Now, the minute we talk about brave, we know we are talking about a person.and in the sentence we know only bob can be brave. We cannot say country is brave or
+enemy is brave. So, in the blank we need to put something related to brave.So our o/p gate o_t =sigma(X_t*U_o+H_(t-1)*W_o)---- its value too lies between 0 and 1.
+H_t=o_t*tanh(C_t)== where C_t is the updated cell state.So hidden state of the current timesatmp is a fraction of the long term memory or the cell state.
+
+output=softmax(H_t)
+
+Gated recurrent unit or GRU---Just like LSTM , they also use gates to control and augment the flow of information.They have simpler architecture as compared to LSTM.
+Also, GRU doesnt have cell state but only hidden state.Becoz of which it is faster to train.H_(t-1) and X_t is given as i/p and H_t is given as o/p.
+There are primarily 2 gates in GRU , opposed to 3 gates in LSTM.Reset gate is responsible for handling short term memory of network i.e. hidden state.
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+
